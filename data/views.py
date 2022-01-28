@@ -1,9 +1,8 @@
 from django.shortcuts import render
 from django.utils import timezone
+from . models import CustomUser, Profile,Movie,Video
+from django.views import View
 # Create your views here.
-def home(request):
-    current_year = timezone.now().year
-    context = {
-        "current_year": current_year
-    }
-    return render(request, "index.html", context)
+class Home(View):
+    def get(self, request, *args, **kwargs):
+        return render(request, "index.html")
