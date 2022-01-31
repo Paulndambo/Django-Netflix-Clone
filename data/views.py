@@ -49,3 +49,14 @@ class ProfileCreate(View):
                 request.user.profiles.add(profile)
                 return redirect("data:profiles")
         return render(request, "profileCreate.html", context)
+
+class WatchList(View):
+    def get(self, request, profile_id, *args, **kwargs):
+        try:
+            profile = Profile.objects.get(uuid=profile_id)
+            movies = Movie.objects.filter(age_limit=profile.age_limit)
+            if profile not in request.user.profiles.all():
+                return redirect(to="data:profiles")
+            return render(request, "movieList.html", {"movies": movies})
+        except Profile.DoesNotExist:
+            return redirect(to="data:profiles")
