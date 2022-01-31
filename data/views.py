@@ -9,9 +9,10 @@ from . models import Profile
 # Create your views here.
 class Home(View):
     def get(self, request, *args, **kwargs):
+        current_year = timezone.now().year
         if request.user.is_authenticated:
             return redirect("data:profiles")
-        return render(request, "index.html")
+        return render(request, "index.html", {"current_year": current_year})
 
 
 @method_decorator(login_required, name='dispatch')
@@ -67,5 +68,8 @@ class WatchList(View):
 @method_decorator(login_required, name="dispatch")
 class MovieDetail(View):
     def get(self, request, movie_id, *args, **kwargs):
-        movie = Movie.objects.get(uuid=movie_id)
-        return render(request, "movieDetail.html")
+        try:
+            movie = Movie.objects.get(uuid=movie_id)
+            return render(request, "movieDetail.html", {"movie": movie})
+        except Movie.DoesNotExist:
+            return redirect("data:profiles")

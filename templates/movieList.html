@@ -42,8 +42,8 @@
 
                 <div class="flex justify-center  items-center min-w-full  movie_lis">
                    
-                    {% for novie in movies %}
-                    <a href="#">
+                    {% for movie in movies %}
+                    <a href="{% url 'data:movie-details' movie.uuid %}">
                     <div class="flex-shrink-0  h-40 m-4  bg-blue-500 rounded-md cursor-pointer overflow-hidden w-40" >
                         <img src="{{movie.flyer.url}}" class="w-full h-full " alt="">
                     </div>
