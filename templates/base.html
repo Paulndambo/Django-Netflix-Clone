@@ -8,6 +8,11 @@
     <title>Netflix {% block title %}{% endblock title %}</title>
     <link rel="stylesheet" href="{% static 'style.css' %}">
     <script src="https://unpkg.com/ionicons@5.4.0/dist/ionicons.js"></script>
+    <style>
+        .player::-webkit-progress-bar{
+            color: red;
+        }
+    </style>
 </head>
 <body class="bg-black text-gray-100">
     <nav class="flex justify-between items-center py-3 px-4 fixed w-full z-50">

@@ -16,7 +16,7 @@ Profiles
            
            {% for profile in profiles %}
 
-           <a href="#">
+           <a href="{% url 'data:watch-list' profile_id=profile.uuid %}">
             <div class="w-32 h-32 m-4 flex flex-col justify-center align-center text-center bg-blue-500 rounded-md cursor-pointer">
                 <p class="text-6xl">
                     {{profile.name | slice:":1"}}

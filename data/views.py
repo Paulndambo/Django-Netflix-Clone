@@ -50,6 +50,8 @@ class ProfileCreate(View):
                 return redirect("data:profiles")
         return render(request, "profileCreate.html", context)
 
+
+@method_decorator(login_required, name="dispatch")
 class WatchList(View):
     def get(self, request, profile_id, *args, **kwargs):
         try:
@@ -60,3 +62,10 @@ class WatchList(View):
             return render(request, "movieList.html", {"movies": movies})
         except Profile.DoesNotExist:
             return redirect(to="data:profiles")
+
+
+@method_decorator(login_required, name="dispatch")
+class MovieDetail(View):
+    def get(self, request, movie_id, *args, **kwargs):
+        movie = Movie.objects.get(uuid=movie_id)
+        return render(request, "movieDetail.html")
