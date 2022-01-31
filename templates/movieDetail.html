@@ -14,19 +14,33 @@
                     Lorem ipsum dolor sit amet consectetur, adipisicing elit. Delectus repellendus odit perspiciatis nostrum culpa exercitationem quis. Ab obcaecati odio minus. Dolorum sapiente eaque, repellendus ea fugiat amet fuga libero at!
                 </p>
                 <div class="flex my-4">
-
+                   <a href="{% url 'data:play' movie_id=movie.uuid %}"> 
                     <button class="flex items-center bg-white py-2 px-5 rounded-md" style="color:black;">
                         <ion-icon name="play" class="text-2xl"></ion-icon>
                         <span class="ml-3 font-medium">
                             Play
                         </span>
                     </button>
-    
+                </a>
                     
                 </div>
             </div>
         </section> 
         <section class='bg-primary_black  min-h-screen flex justify-center py-10'>
+            
+            {% if movie.type == "Series" %}
+                <div style="margin-top:2rem;margin-bottom:2rem">
+                    <h2 class="text-gray-200 text-3xl font-medium">
+                        Episode
+                        {% for episode in movie.videos.all %}
+                            <h3 class="text-lg">
+                                <a href="{% url 'data:play' movie_id=movie.uuid %}?epi={{forloop.counter0}}">{{forloop.counter}} - {{episode.title}}</a>
+                            </h3>
+                        {% endfor %}
+                    </h2>
+                </div>
+            {% endif %}
+            
             <div class="p-8 w-10/12 relative" >
                 <h2 class="text-gray-200 text-3xl font-medium">
                     Description

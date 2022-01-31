@@ -9,10 +9,9 @@ from . models import Profile
 # Create your views here.
 class Home(View):
     def get(self, request, *args, **kwargs):
-        current_year = timezone.now().year
         if request.user.is_authenticated:
             return redirect("data:profiles")
-        return render(request, "index.html", {"current_year": current_year})
+        return render(request, "index.html")
 
 
 @method_decorator(login_required, name='dispatch')
@@ -71,5 +70,17 @@ class MovieDetail(View):
         try:
             movie = Movie.objects.get(uuid=movie_id)
             return render(request, "movieDetail.html", {"movie": movie})
+        except Movie.DoesNotExist:
+            return redirect("data:profiles")
+
+
+@method_decorator(login_required, name="dispatch")
+class PlayVideo(View):
+    def get(self, request, movie_id, *args, **kwargs):
+        try:
+            movie = Movie.objects.get(uuid=movie_id)
+            movie = movie.videos.values()
+
+            return render(request, "showMovie.html", {"movie": movie})
         except Movie.DoesNotExist:
             return redirect("data:profiles")
