@@ -13,7 +13,7 @@ COPY requirements.txt .
 
 # Install app dependencies
 RUN pip install --no-cache-dir -r requirements.txt
-RUN python manage.py collectstatic
+#RUN python manage.py collectstatic
 
 # Copy the rest of the application code to the container
 COPY . .
